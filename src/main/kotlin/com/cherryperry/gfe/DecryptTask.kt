@@ -7,11 +7,7 @@ import com.cherryperry.gfe.base.PlainFilesAware
 import com.cherryperry.gfe.base.PlainFilesAwareDelegate
 import com.cherryperry.gfe.base.SecretKeyAware
 import com.cherryperry.gfe.base.SecretKeyAwareDelegate
-import java.io.File
-import javax.crypto.Cipher
-import javax.crypto.CipherInputStream
-import javax.crypto.SecretKey
-import javax.inject.Inject
+import org.gradle.api.file.FileCollection
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.Input
@@ -22,6 +18,11 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import org.gradle.workers.IsolationMode
 import org.gradle.workers.WorkerExecutor
+import java.io.File
+import javax.crypto.Cipher
+import javax.crypto.CipherInputStream
+import javax.crypto.SecretKey
+import javax.inject.Inject
 
 open class DecryptTask @Inject constructor(
     private val workerExecutor: WorkerExecutor
@@ -32,10 +33,10 @@ open class DecryptTask @Inject constructor(
 
     @get:InputFiles
     @get:SkipWhenEmpty
-    override val encryptedFiles: Iterable<File> by EncryptedFilesAwareDelegate()
+    override val encryptedFiles: FileCollection by EncryptedFilesAwareDelegate()
 
     @get:OutputFiles
-    override val plainFiles: Iterable<File> by PlainFilesAwareDelegate()
+    override val plainFiles: FileCollection by PlainFilesAwareDelegate()
 
     init {
         description = "Decrypts all encrypted files from configuration if they exist"

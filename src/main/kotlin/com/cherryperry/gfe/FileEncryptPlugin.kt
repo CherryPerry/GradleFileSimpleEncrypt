@@ -11,11 +11,13 @@ open class FileEncryptPlugin : Plugin<Project> {
         const val TASK_ENCRYPT_NAME = "encryptFiles"
         const val TASK_DECRYPT_NAME = "decryptFiles"
         const val TASK_GIT_IGNORE_NAME = "checkFilesGitIgnored"
+
+        private val GRADLE_VERSION_LAZY_API = GradleVersion.version("4.9")
     }
 
     override fun apply(project: Project) {
-        project.extensions.create(EXTENSION_NAME, FileEncryptPluginExtension::class.java)
-        if (GradleVersion.current() >= GradleVersion.version("4.9")) {
+        project.extensions.create(EXTENSION_NAME, FileEncryptPluginExtension::class.java, project)
+        if (GradleVersion.current() >= GRADLE_VERSION_LAZY_API) {
             project.tasks.register(TASK_ENCRYPT_NAME, EncryptTask::class.java)
             project.tasks.register(TASK_DECRYPT_NAME, DecryptTask::class.java)
             project.tasks.register(TASK_GIT_IGNORE_NAME, CheckGitIgnoreTask::class.java)

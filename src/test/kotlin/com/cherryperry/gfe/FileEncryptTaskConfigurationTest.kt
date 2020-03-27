@@ -41,7 +41,7 @@ class FileEncryptTaskConfigurationTest {
 
     @Test
     fun testEncryptTaskConfigurationEmpty() {
-        extension.files = emptyArray()
+        extension.files.setFrom()
         val inputs = encryptTask.plainFiles.toList()
         Assert.assertEquals(0, inputs.size)
         val outputs = encryptTask.encryptedFiles.toList()
@@ -50,7 +50,7 @@ class FileEncryptTaskConfigurationTest {
 
     @Test
     fun testEncryptTaskConfigurationSingle() {
-        extension.files = arrayOf("1.txt")
+        extension.files.setFrom("1.txt")
         val inputs = encryptTask.plainFiles.toList()
         Assert.assertEquals(1, inputs.size)
         Assert.assertTrue(inputs[0].endsWith("1.txt"))
@@ -61,7 +61,7 @@ class FileEncryptTaskConfigurationTest {
 
     @Test
     fun testEncryptTaskConfigurationMultiple() {
-        extension.files = arrayOf("1.txt", "2.txt")
+        extension.files.setFrom("1.txt", "2.txt")
         val inputs = encryptTask.plainFiles.toList()
         Assert.assertEquals(2, inputs.size)
         Assert.assertTrue(inputs[0].endsWith("1.txt"))
@@ -74,7 +74,7 @@ class FileEncryptTaskConfigurationTest {
 
     @Test
     fun testEncryptTaskConfigurationMapping() {
-        extension.files = arrayOf("1.txt", "2.txt")
+        extension.files.setFrom("1.txt", "2.txt")
         extension.mapping = mapOf("2.txt" to "3.txt")
         val inputs = encryptTask.plainFiles.toList()
         Assert.assertEquals(2, inputs.size)
@@ -88,7 +88,7 @@ class FileEncryptTaskConfigurationTest {
 
     @Test
     fun testDecryptTaskConfigurationEmpty() {
-        extension.files = emptyArray()
+        extension.files.setFrom()
         val inputs = decryptTask.encryptedFiles.toList()
         Assert.assertEquals(0, inputs.size)
         val outputs = encryptTask.plainFiles.toList()
@@ -97,7 +97,7 @@ class FileEncryptTaskConfigurationTest {
 
     @Test
     fun testDecryptTaskConfigurationSingle() {
-        extension.files = arrayOf("1.txt")
+        extension.files.setFrom("1.txt")
         val inputs = encryptTask.encryptedFiles.toList()
         Assert.assertEquals(1, inputs.size)
         Assert.assertTrue(inputs[0].endsWith("1.txt.${FileNameTransformer.EXTENSION}"))
@@ -108,7 +108,7 @@ class FileEncryptTaskConfigurationTest {
 
     @Test
     fun testDecryptTaskConfigurationMultiple() {
-        extension.files = arrayOf("1.txt", "2.txt")
+        extension.files.setFrom("1.txt", "2.txt")
         val inputs = encryptTask.encryptedFiles.toList()
         Assert.assertEquals(2, inputs.size)
         Assert.assertTrue(inputs[0].endsWith("1.txt.${FileNameTransformer.EXTENSION}"))
@@ -121,7 +121,7 @@ class FileEncryptTaskConfigurationTest {
 
     @Test
     fun testDecryptTaskConfigurationMapping() {
-        extension.files = arrayOf("1.txt", "2.txt")
+        extension.files.setFrom("1.txt", "2.txt")
         extension.mapping = mapOf("2.txt" to "3.txt")
         val inputs = encryptTask.encryptedFiles.toList()
         Assert.assertEquals(2, inputs.size)

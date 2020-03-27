@@ -1,8 +1,8 @@
 package com.cherryperry.gfe.base
 
-import java.io.File
+import org.gradle.api.file.FileCollection
 
 interface EncryptedFilesAware {
 
-    val encryptedFiles: Iterable<File>
+    val encryptedFiles: FileCollection
 }

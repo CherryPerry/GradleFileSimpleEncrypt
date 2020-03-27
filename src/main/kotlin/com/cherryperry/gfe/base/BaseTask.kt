@@ -12,7 +12,7 @@ import org.gradle.api.tasks.Internal
 abstract class BaseTask : DefaultTask() {
 
     @get:Internal
-    val fileEncryptPluginExtension: FileEncryptPluginExtension =
+    internal val extension: FileEncryptPluginExtension =
         project.extensions.getByType(FileEncryptPluginExtension::class.java)
 
     init {
